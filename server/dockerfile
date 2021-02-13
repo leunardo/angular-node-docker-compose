@@ -1,0 +1,20 @@
+FROM node:15.0-alpine as base
+
+COPY . /server/
+WORKDIR /server/
+
+RUN npm install
+
+
+# FROM base as production
+# RUN npm run build
+# RUN ls -a
+# COPY ./server/dist /dist/
+
+
+FROM base as development
+RUN npm install nodemon
+ENTRYPOINT [ "npm", "start" ]
+
+# COPY ./server/dist /dist/
+
