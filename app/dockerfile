@@ -1,0 +1,16 @@
+FROM node:current-alpine as base
+
+
+COPY ./package.json /app/
+COPY ./package-lock.json /app/
+
+WORKDIR /app/
+
+RUN npm install
+
+COPY . /app/
+
+FROM base as development
+ENTRYPOINT [ "npm", "start" ]
+
+
