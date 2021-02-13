@@ -1,20 +1,12 @@
-FROM node:current-alpine as base
+FROM node:current-alpine as development
 
 COPY . /server/
 WORKDIR /server/
 
 RUN npm install
-
-
-# FROM base as production
-# RUN npm run build
-# RUN ls -a
-# COPY ./server/dist /dist/
-
-
-FROM base as development
 RUN npm install nodemon
 ENTRYPOINT [ "npm", "start" ]
 
-# COPY ./server/dist /dist/
 
+FROM development as release
+ENTRYPOINT [ "node", "src/main.js" ]
