@@ -6,6 +6,7 @@ services:
     build: 
       context: ./server
       target: release
+    image: leunardo/sample-app-server
 
     ports:
         - "3000:3000"
@@ -18,6 +19,16 @@ services:
     build: 
       context: ./app
       target: release
+    image: leunardo/sample-app-web
 
     ports:
-      - "4200:80"
+      - "4200:4200"
+
+  proxy:
+    container_name: "pp-proxy"
+    build:
+      context: ./proxy
+    image: leunardo/sample-app-proxy
+
+    ports:
+      - "80:80"
